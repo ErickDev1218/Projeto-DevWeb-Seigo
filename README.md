@@ -1,6 +1,8 @@
 # :checkered_flag: Seigo
 
-Breve descrição do que o seu projeto faz.
+Catálago e leitor de mangá online. 
+Um colega autor de mangá liberou os direitos autorais para que a gente pudesse disponibilizar o mesmo online. Com isso, pensamos na ideia de fazer este site.
+Segue link do mangá no instagram: https://www.instagram.com/seigo_og
 
 ## :technologist: Membros da equipe
 
