@@ -1,24 +1,33 @@
-# :checkered_flag: NOME DO PROJETO
+# :checkered_flag: Seigo
 
 Breve descrição do que o seu projeto faz.
 
 ## :technologist: Membros da equipe
 
-Matrícula, nome e curso dos participantes.
+Antonio Erick Freitas Ferreira - 542631
+Matheus Conrado Pires - 536536
+João Pedro Soares Matias - 538683
 
 ## :people_holding_hands: Papéis ou tipos de usuário da aplicação
 
-Informe aqui os tipos de usuário que irão interagir com a aplicação. Ex: administrador, locador, locatario, usuário não logado.
-
-> Tenha em mente que obrigatoriamente a aplicação deve possuir funcionalidades acessíveis a todos os tipos de usuário e outra funcionalidades restritas a certos tipos de usuários.
+- Usuário não registrado
+- Usuário registrado
+- Administrador
 
 ## :spiral_calendar: Entidades ou tabelas do sistema
 
-Liste as principais entidades do sistema.
+- Volume
+- Capítulo
+- Usuário
+- Comentário
+- Avaliação
 
 ## :triangular_flag_on_post:	 Principais funcionalidades da aplicação
 
-Descreve ou liste brevemente as principais funcionalidades da aplicação que será desenvolvida. Destaque a funcionalidades que serão acessévies a todos os usuários e aquelas restriras a usuários logados.
+Usuário não registrado: Pode apenas acessar e ler os capítulos.
+Usuário registrado: Pode acessar, ler, comentar e avaliar capítulos.
+Administrador: Pode inserir, remover e editar capítulos. Pode apagar comentários.
+
 
 
 ----
