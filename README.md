@@ -27,7 +27,7 @@ João Pedro Soares Matias - 538683
 ## :triangular_flag_on_post:	 Principais funcionalidades da aplicação
 
 Usuário não registrado: Pode apenas acessar e ler os capítulos.
-Usuário registrado: Pode acessar, ler, comentar e avaliar capítulos.
+Usuário registrado: Pode acessar, ler, comentar e avaliar capítulos. Também será possível fazer download de capítulos e o usuário ao retornar ao capítulo poderá decidir se voltará de onde parou ou do início.
 Administrador: Pode inserir, remover e editar capítulos. Pode apagar comentários.
 
 
