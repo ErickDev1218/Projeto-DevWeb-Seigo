@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "primeira_tabelas",
+  "info": {
+    "singularName": "primeira-tabela",
+    "pluralName": "primeira-tabelas",
+    "displayName": "PrimeiraTabela"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "Descricao": {
+      "type": "blocks"
+    }
+  }
+}

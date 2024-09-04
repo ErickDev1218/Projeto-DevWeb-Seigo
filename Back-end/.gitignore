@@ -65,7 +65,6 @@ package-lock.json
 # Logs and databases
 ############################
 
-.tmp
 *.log
 *.sql
 *.sqlite
