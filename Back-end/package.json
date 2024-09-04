@@ -1,5 +1,5 @@
 {
-  "name": "seigo-be",
+  "name": "back-end",
   "private": true,
   "version": "0.1.0",
   "description": "A Strapi application",
@@ -26,7 +26,7 @@
     "name": "A Strapi developer"
   },
   "strapi": {
-    "uuid": "16f76fd1-b316-4d7a-bf2c-8e10cfe283fc"
+    "uuid": "29eff832-deee-41cf-895b-c2a6215e5276"
   },
   "engines": {
     "node": ">=18.0.0 <=20.x.x",

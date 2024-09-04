@@ -60,7 +60,6 @@ $RECYCLE.BIN/
 *.out
 *.pid
 
-package-lock.json
 
 ############################
 # Logs and databases
