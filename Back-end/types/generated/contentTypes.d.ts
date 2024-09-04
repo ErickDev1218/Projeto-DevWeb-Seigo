@@ -367,14 +367,16 @@ export interface ApiPrimeiraTabelaPrimeiraTabela extends Schema.CollectionType {
   info: {
     singularName: 'primeira-tabela';
     pluralName: 'primeira-tabelas';
-    displayName: 'PrimeiraTabela';
+    displayName: 'ActCover';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    Name: Attribute.String & Attribute.Required & Attribute.Unique;
-    Descricao: Attribute.Blocks;
+    id_act: Attribute.String & Attribute.Required & Attribute.Unique;
+    Cover: Attribute.Media<'images'> & Attribute.Required;
+    Testando: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
