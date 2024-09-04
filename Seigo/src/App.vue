@@ -10,7 +10,7 @@ import { BASE_URL } from './api'
       <li class="list">
         <RouterLink :to="'/'" class="listItem">Home</RouterLink>
         <ul class="listItem">Contato</ul>
-        <ul class="listItem">Loginnnnnn</ul>
+        <ul class="listItem">Login</ul>
       </li>
     </div>
   
