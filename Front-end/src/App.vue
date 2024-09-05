@@ -7,6 +7,7 @@ import { BASE_URL } from './api'
 
 <template>
     <div class="img">
+      <img src="/images/Top-Image.jpeg" alt="Logo">
       <li class="list">
         <RouterLink :to="'/'" class="listItem">Home</RouterLink>
         <ul class="listItem">Contato</ul>
@@ -32,22 +33,32 @@ import { BASE_URL } from './api'
   }
   .listItem:hover{
     border-radius: 1em;
-    background-color: orange;
+    background-color: rgb(128, 2, 128);
     color: black;
     transition: background-color 0.3s,color 0.3s;
 
   }
   .img{
-    background-image: url('/images/Top-Image.jpeg');
     background-repeat: no-repeat;
     background-size: cover;
     filter: blur();
-    height: 30vh;
+    height: 15vh;
     width: 100%;
     display: flex;
     align-items: end;
     justify-content: end;
     background-color: rgba(0,0,0,0.3);
-    background-blend-mode:overlay ;
+    background-blend-mode:overlay;
+    overflow : hidden;
+  }
+  .img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    filter : blur(0px);
   }
 </style>
