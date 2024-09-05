@@ -9,7 +9,7 @@ import { BASE_URL } from './api'
     <div class="img">
       <img src="/images/Top-Image.jpeg" alt="Logo">
       <li class="list">
-        <RouterLink :to="'/'" class="listItem">Home</RouterLink>
+        <RouterLink :to="'/'" class="listItem">Tela inicial</RouterLink>
         <ul class="listItem">Contato</ul>
         <ul class="listItem">Login</ul>
       </li>
