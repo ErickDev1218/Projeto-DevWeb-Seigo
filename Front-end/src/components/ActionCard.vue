@@ -22,24 +22,29 @@ onMounted( async () =>{
 
 <style scoped>
     .container{
-        width: 250px;
-        height: 350px;
+        height: 80%;
         background-color: black;
-        border: 1px solid white;
+        border: 0x solid black;
         display: flex;
+        justify-content: center;
         flex-direction: column;
-        padding: 1em;
-        border-radius: 1.5em;
-        
+        flex-wrap: wrap;
+        filter: grayscale(100%);
+        transition: filter 0.5s ease;
     }
     .container:hover{
-        box-shadow: 5px 5px 5px white;
-        background-color: orange;
-        transition: background-color 0.5s, box-shadow 0.3s;
+        filter: grayscale(0%);
+        transition: grayscale 0.5s;
     }
 
     .imagem{
         width: 100%;
         height: 100%;
+        border-radius: 0em;
     }
+    .imagem:hover{
+        box-shadow: 0px 0px 20px rgb(128, 2, 128);
+        transition: border-radius 0.3s, box-shadow 0.3s;
+    }
+
 </style>
