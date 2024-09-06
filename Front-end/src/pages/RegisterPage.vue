@@ -44,8 +44,7 @@
         justify-content: center;
     }
     .insideImg > img{
-        width: 80%;
-        height: 80%;
+        width: 100%;
         object-fit: cover;
     }
     .insideContent{
