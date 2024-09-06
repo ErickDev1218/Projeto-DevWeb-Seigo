@@ -10,12 +10,13 @@
       <li class="list">
         <RouterLink :to="'/'" class="listItem">Tela inicial</RouterLink>
         <ul class="listItem">Contato</ul>
-        <ul class="listItem">Login</ul>
+        <RouterLink :to="'/login'" class="listItem">Login</RouterLink>
       </li>
     </div>
     <img src="/images/teste.jpeg" alt="background img" class="backgroundFullPic">
-    
-    <RouterView />
+    <div class="pageRest">
+      <RouterView />
+    </div>
   </div>
 </template>
 
@@ -26,7 +27,11 @@
     width: 100%;
     height: 100vh;
   }
-/* Imagem de fundo */
+  .pageRest{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .backgroundFullPic{
       width: 100%;
       height: 85vh;
