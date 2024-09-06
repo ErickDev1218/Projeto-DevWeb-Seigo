@@ -15,7 +15,7 @@ const router = createRouter({
       component: ActInDetails
     },
     {
-      path:'/registrar',
+      path:'/register',
       component: RegisterPage
     }
 

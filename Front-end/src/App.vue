@@ -3,18 +3,20 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <div class="masterContainer">    
+  <div class="masterContainer">
+    
     <div class="headerContainer">
       <img src="/images/Top-Image.jpeg" alt="Logo" class="header">
       <li class="list">
         <RouterLink :to="'/'" class="listItem">Tela inicial</RouterLink>
-        <RouterLink :to="'/registrar'" class="listItem">Contato</RouterLink>
-        <ul class="listItem">Login</ul>
+        <ul class="listItem">Contato</ul>
+        <RouterLink :to="'/login'" class="listItem">Login</RouterLink>
       </li>
     </div>
     <img src="/images/teste.jpeg" alt="background img" class="backgroundFullPic">
-    
-    <RouterView />
+    <div class="pageRest">
+      <RouterView />
+    </div>
   </div>
 </template>
 
@@ -23,7 +25,11 @@ import { RouterLink, RouterView } from 'vue-router'
     width: 100%;
     height: 100vh;
   }
-/* Imagem de fundo */
+  .pageRest{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .backgroundFullPic{
       width: 100%;
       height: 85vh;
