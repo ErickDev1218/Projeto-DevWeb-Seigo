@@ -1,37 +1,70 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
 import ActionCard from '@/components/ActionCard.vue'
+import { api } from '@/api';
+const covers = ref(null)
+const loading = ref(true)
+onMounted( async () => {
+    try{
+       const { data } = await api.get('/act-covers?populate=actCover') 
+       console.log(data.data)
+       covers.value = data.data
+    }catch(e){console.log(e)}finally{
+        loading.value = false
+    }
+})
 </script>
 
 <template>
     <div class="mainContainer">
-        <img src="/images/teste.jpeg" alt="background img">
-        <ActionCard />
-        <ActionCard />
-        <ActionCard />
+        <div v-if="loading">
+            <p>
+                Aguarde...
+            </p>
+        </div>
+        <div v-else class="cardContainer">
+            <ActionCard v-for="(cover) in covers " 
+            :key="cover.attributes.idCover" 
+            :url="cover.attributes.actCover.data.attributes.url"
+            :idCover="cover.attributes.idCover"
+            />
+        </div>
     </div>
 </template>
 
 <style scoped>
 .mainContainer{
     width: 100%;
-    height: 100vh;
+    height: 85vh;
     display: flex;
-    justify-content: center;
-    gap: 1.2em;
     align-items: start;
-    padding-top: 1em;
-    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 1em;
 }
-.mainContainer img{
+.cardContainer{
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    position: absolute;
-    z-index: -1;
-    filter: grayscale(100%) blur(5px) brightness(0.3);   
+    display: flex;
+    align-items: start;
+    justify-content: space-around;
+    gap: 1em;
+    flex-wrap: wrap;
+}
+.cardContainer > .card {
+    width: 540px;
+    height: 720px;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    filter: grayscale(100%);
+    transition: filter 0.5s ease;
+    cursor: pointer;
+}
+.cardContainer > .card:hover{
+    filter: grayscale(0%);
+    transition: grayscale 0.5s;
 }
 
-.color{
-    color: white;
-}
 </style>

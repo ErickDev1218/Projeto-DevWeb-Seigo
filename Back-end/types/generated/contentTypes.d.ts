@@ -362,32 +362,35 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiPrimeiraTabelaPrimeiraTabela extends Schema.CollectionType {
-  collectionName: 'primeira_tabelas';
+export interface ApiActCoverActCover extends Schema.CollectionType {
+  collectionName: 'act_covers';
   info: {
-    singularName: 'primeira-tabela';
-    pluralName: 'primeira-tabelas';
+    singularName: 'act-cover';
+    pluralName: 'act-covers';
     displayName: 'ActCover';
-    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    id_act: Attribute.String & Attribute.Required & Attribute.Unique;
-    Cover: Attribute.Media<'images'> & Attribute.Required;
-    Testando: Attribute.String;
+    actCover: Attribute.Media<'images'> & Attribute.Required;
+    idCover: Attribute.String &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::primeira-tabela.primeira-tabela',
+      'api::act-cover.act-cover',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::primeira-tabela.primeira-tabela',
+      'api::act-cover.act-cover',
       'oneToOne',
       'admin::user'
     > &
@@ -831,7 +834,7 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::primeira-tabela.primeira-tabela': ApiPrimeiraTabelaPrimeiraTabela;
+      'api::act-cover.act-cover': ApiActCoverActCover;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;

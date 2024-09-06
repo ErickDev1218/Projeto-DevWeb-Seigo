@@ -1,24 +1,39 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import { BASE_URL } from './api'
-
-
 </script>
 
 <template>
-    <div class="img">
-      <img src="/images/Top-Image.jpeg" alt="Logo">
+  <div class="masterContainer">
+    
+    <div class="headerContainer">
+      <img src="/images/Top-Image.jpeg" alt="Logo" class="header">
       <li class="list">
         <RouterLink :to="'/'" class="listItem">Tela inicial</RouterLink>
         <ul class="listItem">Contato</ul>
         <ul class="listItem">Login</ul>
       </li>
     </div>
-  
-  <RouterView />
+    <img src="/images/teste.jpeg" alt="background img" class="backgroundFullPic">
+    
+    <RouterView />
+  </div>
 </template>
 
 <style scoped>
+  .masterContainer {
+    width: 100%;
+    height: 100vh;
+  }
+/* Imagem de fundo */
+  .backgroundFullPic{
+      width: 100%;
+      height: 85vh;
+      object-fit: cover;
+      position: absolute;
+      z-index: -1;
+      filter: grayscale(100%) blur(5px) brightness(0.3);   
+      overflow: hidden;
+  }
   .list{
     list-style-type: none;
     display: flex;
@@ -30,15 +45,16 @@ import { BASE_URL } from './api'
   .listItem{
     padding: 0.5em;
     cursor: pointer;
+    text-decoration: none;
   }
   .listItem:hover{
     border-radius: 1em;
-    background-color: rgb(128, 2, 128);
+    background-color: orange;
     color: black;
     transition: background-color 0.3s,color 0.3s;
 
   }
-  .img{
+  .headerContainer{
     background-repeat: no-repeat;
     background-size: cover;
     filter: blur();
@@ -51,7 +67,7 @@ import { BASE_URL } from './api'
     background-blend-mode:overlay;
     overflow : hidden;
   }
-  .img img{
+  .header{
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -61,4 +77,6 @@ import { BASE_URL } from './api'
     z-index: -1;
     filter : blur(0px);
   }
+
+
 </style>
