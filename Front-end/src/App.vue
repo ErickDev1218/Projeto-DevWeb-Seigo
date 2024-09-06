@@ -3,13 +3,12 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <div class="masterContainer">
-    
+  <div class="masterContainer">    
     <div class="headerContainer">
       <img src="/images/Top-Image.jpeg" alt="Logo" class="header">
       <li class="list">
         <RouterLink :to="'/'" class="listItem">Tela inicial</RouterLink>
-        <ul class="listItem">Contato</ul>
+        <RouterLink :to="'/registrar'" class="listItem">Contato</RouterLink>
         <ul class="listItem">Login</ul>
       </li>
     </div>
