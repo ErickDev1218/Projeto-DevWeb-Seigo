@@ -97,6 +97,7 @@
     .loginKey:focus {
         width: 100%;
         border: 2px solid orange;
+        transition: width 0.3s, border 0s;
     }
 
     .loginButton{
