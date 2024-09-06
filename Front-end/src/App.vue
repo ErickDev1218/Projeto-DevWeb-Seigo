@@ -9,7 +9,7 @@
       <img src="/images/Top-Image.jpeg" alt="Logo" class="header">
       <li class="list">
         <RouterLink :to="'/'" class="listItem">Tela inicial</RouterLink>
-        <ul class="listItem">Contato</ul>
+        <RouterLink :to="'/register'" class="listItem">Registrar</RouterLink>
         <RouterLink :to="'/login'" class="listItem">Login</RouterLink>
       </li>
     </div>

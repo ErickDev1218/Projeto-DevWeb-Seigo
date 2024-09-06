@@ -23,7 +23,7 @@
                 <input type="password" class="loginKey" id="passInput" placeholder="Senha" v-model="password" required>
                 <button class="loginButton" type="submit">Login</button>
             </form>
-            <RouterLink class="create" :to="'/'">Crie sua conta</RouterLink>
+            <RouterLink class="create" :to="'/register'">Crie sua conta</RouterLink>
 
         </div>
     </div>
