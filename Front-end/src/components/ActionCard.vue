@@ -29,8 +29,8 @@ defineProps<actionCardProps>()
         transition: box-shadow 0.3s;
     }
     .title{
+        font-family: Poppins-Bold;
         color: orange;
-        font-family: cursive;
     }
     .card:hover  .title{
         text-shadow: 0px 0px 10px black;

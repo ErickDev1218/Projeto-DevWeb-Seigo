@@ -50,6 +50,7 @@
     margin-bottom: 1em;
   }
   .listItem{
+    font-family: Poppins-Bold;
     padding: 0.5em;
     cursor: pointer;
     text-decoration: none;
