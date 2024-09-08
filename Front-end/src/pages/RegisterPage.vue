@@ -12,7 +12,7 @@
                 <input type="text" id="name" name="name" placeholder="Nome" class="regInput">
                 <input type="email" id="email" name="email" placeholder="Email" class="regInput">
                 <input type="password" id="password" name="password" placeholder="Senha" class="regInput">
-                <input type="password" id="password" name="password" placeholder="Confirme a senha" class="regInput">
+                <input type="password" id="confPassword" name="confPassword" placeholder="Confirme a senha" class="regInput">
                 <button type="submit" class="regButton">Registrar</button>
             </form>
         </div>

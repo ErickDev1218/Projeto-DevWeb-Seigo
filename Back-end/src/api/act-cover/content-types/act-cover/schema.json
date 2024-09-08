@@ -4,7 +4,8 @@
   "info": {
     "singularName": "act-cover",
     "pluralName": "act-covers",
-    "displayName": "ActCover"
+    "displayName": "ActCover",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -12,18 +13,34 @@
   "pluginOptions": {},
   "attributes": {
     "actCover": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": false,
-      "required": true
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
     },
     "idCover": {
       "type": "string",
       "required": true,
       "unique": true,
       "minLength": 1
+    },
+    "cap_covers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cap-cover.cap-cover",
+      "mappedBy": "act_cover"
+    },
+    "actDetails": {
+      "type": "text",
+      "required": true,
+      "minLength": 1
+    },
+    "isReady": {
+      "type": "boolean",
+      "default": false,
+      "required": true
     }
   }
 }

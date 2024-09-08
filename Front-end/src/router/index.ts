@@ -3,6 +3,7 @@ import HomePage from '@/pages/HomePage.vue'
 import ActInDetails from '@/pages/ActInDetails.vue'
 import LoginPage from '@/pages/LoginPage.vue'
 import RegisterPage from '@/pages/RegisterPage.vue'
+import CapInDetails from '@/pages/CapInDetails.vue'
 
 
 const router = createRouter({
@@ -25,6 +26,10 @@ const router = createRouter({
       path:'/login',
       component: LoginPage
     },
+    {
+      path: '/capDetails/:id',
+      component: CapInDetails
+    }
   ]
 })
 

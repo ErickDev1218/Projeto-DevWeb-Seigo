@@ -6,23 +6,26 @@ import ActionToUse from '@/components/ActionToUse.vue'
 import CapCard from '@/components/CapCard.vue'
 const actObj = ref(null)
 const loading = ref(true)
-const aux = [1,2,3]
+const allCaps = ref(null)
 
 onMounted( async () => {
     const route = useRoute();
     const id = route.params.id;
     try{
-       const { data } = await api.get(`/act-covers/${id}?populate=*`) 
-       console.log(data.data)
-       actObj.value = data.data
+       const resAct = await api.get(`/act-covers/${id}?populate=*`) 
+       const resCap = await api.get(`/cap-covers?populate=*`)
+    //    console.log(resCap.data.data)
+       actObj.value = resAct.data.data
+       allCaps.value = resCap.data.data.filter((each) => each.act_cover.idCover === id)
+    //    console.log(allCaps)
     }catch(e){
         console.log(e)
     }
     finally{
         loading.value = false
     }
-    console.log(id.value)
 })
+
 </script>
 
 <template>
@@ -32,17 +35,22 @@ onMounted( async () => {
                 Aguarde...
             </p>
         </div>
-        <div v-else class="cardContainer">
-            <ActionToUse 
-            :key="actObj.attributes.idCover" 
-            :url="actObj.attributes.actCover.data.attributes.url"
-            :idCover="actObj.attributes.idCover"
-            />
-        </div>
-        <div class="infoContainer">
-            <h1>Informacoes</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime et iste nostrum quis eius rem dolores, quaerat ab. Molestiae quos illo pariatur rem corporis earum accusamus sint eligendi natus odio? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequatur explicabo libero beatae ut impedit! Praesentium vel corrupti, natus alias, provident vitae quo nisi atque assumenda animi repellat delectus officiis consequuntur! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo cum accusantium debitis harum earum, quibusdam nam vitae repellendus optio illum aut tempora non et at tempore obcaecati facilis, necessitatibus eius!</p>
-            <CapCard v-for="(i) in aux" :text="'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo cum accusantium debitis harum earum, quibusdam nam vitae repellendus optio illum aut tempora non et at tempore obcaecati facilis, necessitatibus eius!'" :key="i"/>
+        <div v-else class="fullSize">
+            <div class="cardContainer">
+                <ActionToUse 
+                :key="actObj.idCover" 
+                :url="actObj.actCover !== null ? actObj.actCover.url : ''"
+                :idCover="actObj.idCover"
+                :actDetails="actObj.actDetails"
+                :isReady="actObj.isReady"
+                />
+            </div>
+            <div class="infoContainer">
+                <h1>{{ actObj.actDetails }}</h1>
+                 <div class="allCapsContainer">
+                     <CapCard v-for="(cap) in allCaps" :url="cap.capCover.url" :idCapCover="cap.idCapCover" :key="cap.idCapCover" :isRouter="true"/>
+                 </div>
+            </div>
         </div>
     </div>
 </template>
@@ -57,24 +65,44 @@ onMounted( async () => {
         align-items: center;
         justify-content: space-around;
         padding: 1em;
-        border: 1px solid white;
+    }
+    .fullSize{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .cardContainer{
-        width: 20%;
-        height: 360px;
+        width: 450px;
+        height: 600px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-self: center;
     }
     .cardContainer > .imagem {
         width: 270px;
         height: 360px;
     }
     .infoContainer{
-        border: 1px solid orange;
         width: 80%;
         display: flex;
         flex-direction: column;
         align-items: center;
+        gap: 2em;
+    }
+    .infoContainer h1 {
+        color: orange;
     }
     .infoContainer > .capContainer {
         border: 1px solid purple;
+    }
+    .allCapsContainer {
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
     }
 </style>

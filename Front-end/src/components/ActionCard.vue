@@ -1,15 +1,19 @@
 <script setup lang="ts">
 import { BASE_URL } from '@/api';
-import { actionCardProps } from '@/types'
+import type { actionCardProps } from '@/types'
 import { RouterLink } from 'vue-router'
 defineProps<actionCardProps>()
 </script>
 
 <template>
-        <RouterLink class="card" :to="`/actDetails/${idCover}`">
-            <img :src="BASE_URL + url" :alt="`Capa do ato ${idCover}`" class='imagem'>
+        <RouterLink v-if="isReady === true" class="card" :to="`/actDetails/${idCover}`">
+            <img  :src="BASE_URL + url" :alt="`Capa do ato ${idCover}`" class='imagem'>
             <h1 class="title">ATO - {{ idCover }}</h1>
         </RouterLink>
+        <div v-else class="notReady card">
+            <h1 class="title">ATO - {{ idCover }}</h1>
+            <h5>Em breve...</h5>
+        </div>
 </template>
 
 <style scoped>
@@ -32,11 +36,13 @@ defineProps<actionCardProps>()
         font-family: Poppins-Bold;
         color: orange;
     }
-    .card:hover  .title{
+    .card:hover .title{
         text-shadow: 0px 0px 10px black;
         transition: text-shadow 0.3s;
     }
-    
+    .notReady{
+        border: 1px solid white;
+    }
         
 
 </style>

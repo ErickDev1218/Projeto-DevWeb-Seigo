@@ -362,42 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiActCoverActCover extends Schema.CollectionType {
-  collectionName: 'act_covers';
-  info: {
-    singularName: 'act-cover';
-    pluralName: 'act-covers';
-    displayName: 'ActCover';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    actCover: Attribute.Media<'images'> & Attribute.Required;
-    idCover: Attribute.String &
-      Attribute.Required &
-      Attribute.Unique &
-      Attribute.SetMinMaxLength<{
-        minLength: 1;
-      }>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::act-cover.act-cover',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::act-cover.act-cover',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -626,6 +590,53 @@ export interface PluginContentReleasesReleaseAction
   };
 }
 
+export interface PluginI18NLocale extends Schema.CollectionType {
+  collectionName: 'i18n_locale';
+  info: {
+    singularName: 'locale';
+    pluralName: 'locales';
+    collectionName: 'locales';
+    displayName: 'Locale';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.SetMinMax<
+        {
+          min: 1;
+          max: 50;
+        },
+        number
+      >;
+    code: Attribute.String & Attribute.Unique;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::i18n.locale',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::i18n.locale',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUsersPermissionsPermission
   extends Schema.CollectionType {
   collectionName: 'up_permissions';
@@ -777,46 +788,126 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface PluginI18NLocale extends Schema.CollectionType {
-  collectionName: 'i18n_locale';
+export interface ApiActCoverActCover extends Schema.CollectionType {
+  collectionName: 'act_covers';
   info: {
-    singularName: 'locale';
-    pluralName: 'locales';
-    collectionName: 'locales';
-    displayName: 'Locale';
+    singularName: 'act-cover';
+    pluralName: 'act-covers';
+    displayName: 'ActCover';
     description: '';
   };
   options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
+    draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String &
-      Attribute.SetMinMax<
-        {
-          min: 1;
-          max: 50;
-        },
-        number
-      >;
-    code: Attribute.String & Attribute.Unique;
+    actCover: Attribute.Media<'images'>;
+    idCover: Attribute.String &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    cap_covers: Attribute.Relation<
+      'api::act-cover.act-cover',
+      'oneToMany',
+      'api::cap-cover.cap-cover'
+    >;
+    actDetails: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    isReady: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.DefaultTo<false>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'plugin::i18n.locale',
+      'api::act-cover.act-cover',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'plugin::i18n.locale',
+      'api::act-cover.act-cover',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCapCoverCapCover extends Schema.CollectionType {
+  collectionName: 'cap_covers';
+  info: {
+    singularName: 'cap-cover';
+    pluralName: 'cap-covers';
+    displayName: 'CapCover';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    capCover: Attribute.Media<'images'> & Attribute.Required;
+    idCapCover: Attribute.String & Attribute.Required & Attribute.Unique;
+    act_cover: Attribute.Relation<
+      'api::cap-cover.cap-cover',
+      'manyToOne',
+      'api::act-cover.act-cover'
+    >;
+    manga_pictures: Attribute.Relation<
+      'api::cap-cover.cap-cover',
+      'oneToMany',
+      'api::manga-picture.manga-picture'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::cap-cover.cap-cover',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::cap-cover.cap-cover',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiMangaPictureMangaPicture extends Schema.CollectionType {
+  collectionName: 'manga_pictures';
+  info: {
+    singularName: 'manga-picture';
+    pluralName: 'manga-pictures';
+    displayName: 'MangaPicture';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    picture: Attribute.Media<'images', true> & Attribute.Required;
+    cap_cover: Attribute.Relation<
+      'api::manga-picture.manga-picture',
+      'manyToOne',
+      'api::cap-cover.cap-cover'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::manga-picture.manga-picture',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::manga-picture.manga-picture',
       'oneToOne',
       'admin::user'
     > &
@@ -834,15 +925,17 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::act-cover.act-cover': ApiActCoverActCover;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
+      'plugin::i18n.locale': PluginI18NLocale;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'plugin::i18n.locale': PluginI18NLocale;
+      'api::act-cover.act-cover': ApiActCoverActCover;
+      'api::cap-cover.cap-cover': ApiCapCoverCapCover;
+      'api::manga-picture.manga-picture': ApiMangaPictureMangaPicture;
     }
   }
 }

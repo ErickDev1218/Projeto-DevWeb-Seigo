@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cap_covers",
+  "info": {
+    "singularName": "cap-cover",
+    "pluralName": "cap-covers",
+    "displayName": "CapCover",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "capCover": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "idCapCover": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "act_cover": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::act-cover.act-cover",
+      "inversedBy": "cap_covers"
+    },
+    "manga_pictures": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::manga-picture.manga-picture",
+      "mappedBy": "cap_cover"
+    }
+  }
+}
