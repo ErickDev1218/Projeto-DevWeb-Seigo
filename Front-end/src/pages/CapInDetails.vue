@@ -1,10 +1,16 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { api, BASE_URL } from '@/api'
+import { api } from '@/api'
 import { useRoute } from 'vue-router'
 import CapCard from '@/components/CapCard.vue'
 import MangaView from '@/components/MangaView.vue'
-const capInf = ref(null)
+interface capInfFormat {
+    capCover : {
+        url : string
+    }
+    idCapCover : string
+}
+const capInf = ref<capInfFormat>({} as capInfFormat)
 const load = ref(true)
 const openModal = ref(false)
 
@@ -33,7 +39,7 @@ onMounted( async () => {
         </div>
         <div v-else class="fullSize">
             <div class="capContainer">
-                <CapCard :url="capInf.capCover.url"  :idCapCover="capInf.idCapCover" :isRouter="false"/>
+                <CapCard :url="capInf.capCover.url"  :idCapCover="capInf?.idCapCover" :isRouter="false"/>
             </div>
             <div class="restPage">
                 <h1 class="ler" @click="showManga">Ler mangá</h1>

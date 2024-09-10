@@ -2,7 +2,8 @@
 import { onMounted, ref } from 'vue'
 import ActionCard from '@/components/ActionCard.vue'
 import { api } from '@/api';
-const covers = ref(null)
+import type { actionCardProps } from '@/types';
+const covers = ref<actionCardProps[]>([])
 const loading = ref(true)
 onMounted( async () => {
     try{
@@ -27,7 +28,7 @@ onMounted( async () => {
         <div v-else class="cardContainer">
             <ActionCard v-for="(cover) in covers " 
             :key="cover.idCover" 
-            :url="cover.actCover !== null ? cover.actCover.url : ''"
+            :url="cover.actCover !== null ? cover.actCover?.url : ''"
             :idCover="cover.idCover"
             :actDetails="cover.actDetails"
             :isReady="cover.isReady"
@@ -68,8 +69,8 @@ onMounted( async () => {
 }
 .cardContainer > .card:hover{
     filter: grayscale(0%);
-    width: 540px;
-    height: 720px;
+    width: 405px;
+    height: 540px;
     transition: grayscale 0.5s, width 0.5s, height 0.5s;
 }
 

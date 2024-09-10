@@ -2,22 +2,21 @@
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { api } from '@/api';
+import type { actionCardProps, capCardProps } from '@/types'
 import ActionToUse from '@/components/ActionToUse.vue'
 import CapCard from '@/components/CapCard.vue'
-const actObj = ref(null)
+const actObj = ref<actionCardProps>({} as actionCardProps)
+const allCaps = ref<capCardProps[]>([{} as capCardProps])
 const loading = ref(true)
-const allCaps = ref(null)
 
 onMounted( async () => {
     const route = useRoute();
     const id = route.params.id;
     try{
        const resAct = await api.get(`/act-covers/${id}?populate=*`) 
-       const resCap = await api.get(`/cap-covers?populate=*`)
-    //    console.log(resCap.data.data)
+       const resCap  = await api.get(`/cap-covers?populate=*`)
        actObj.value = resAct.data.data
-       allCaps.value = resCap.data.data.filter((each) => each.act_cover.idCover === id)
-    //    console.log(allCaps)
+       allCaps.value = resCap.data.data.filter((each : capCardProps) => each.act_cover.idCover === id)
     }catch(e){
         console.log(e)
     }
@@ -39,7 +38,7 @@ onMounted( async () => {
             <div class="cardContainer">
                 <ActionToUse 
                 :key="actObj.idCover" 
-                :url="actObj.actCover !== null ? actObj.actCover.url : ''"
+                :url="actObj.actCover !== null ? actObj.actCover?.url : ''"
                 :idCover="actObj.idCover"
                 :actDetails="actObj.actDetails"
                 :isReady="actObj.isReady"
@@ -48,7 +47,11 @@ onMounted( async () => {
             <div class="infoContainer">
                 <h1>{{ actObj.actDetails }}</h1>
                  <div class="allCapsContainer">
-                     <CapCard v-for="(cap) in allCaps" :url="cap.capCover.url" :idCapCover="cap.idCapCover" :key="cap.idCapCover" :isRouter="true"/>
+                     <CapCard v-for="(cap) in allCaps" 
+                     :url="cap.capCover.url" 
+                     :idCapCover="cap.idCapCover" 
+                     :key="cap.idCapCover" 
+                     :isRouter="true"/>
                  </div>
             </div>
         </div>

@@ -32,7 +32,7 @@
         flex-wrap: wrap;
         justify-content: space-between;
         width: 40%;
-        height: 55vh;
+        min-height: 55vh;
         border-radius: 1em;
         background-color: white ;
         padding: 20px;

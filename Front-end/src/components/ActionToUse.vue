@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { BASE_URL } from '@/api';
-import { actionCardProps } from '@/types'
+import type { actionCardProps } from '@/types'
 defineProps<actionCardProps>()
 </script>
 
