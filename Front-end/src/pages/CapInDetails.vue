@@ -45,7 +45,7 @@ onMounted( async () => {
                 <h1 class="ler" @click="showManga">Ler mangá</h1>
                 <span class="favBox">
                     <label for="favoritar">Favoritar:</label>
-                    <input type="radio" name="favoritar" id="favoritar">
+                    <input type="checkbox" name="favoritar" id="favoritar">
                 </span>
                 <span class="avalBox">
                     <label for="nota">Avaliar</label>
@@ -102,6 +102,7 @@ onMounted( async () => {
     align-items: center;
     justify-content: center;
     color: orange;
+    cursor: pointer;
 }
 .favBox{
     width: 30%;
@@ -141,6 +142,7 @@ onMounted( async () => {
         width: 80%;
         height: 50%;
         border-radius: 1em;
+        font-size:large ;
     }
 
 }

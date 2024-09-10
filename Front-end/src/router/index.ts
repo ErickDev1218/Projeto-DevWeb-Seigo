@@ -4,7 +4,8 @@ import ActInDetails from '@/pages/ActInDetails.vue'
 import LoginPage from '@/pages/LoginPage.vue'
 import RegisterPage from '@/pages/RegisterPage.vue'
 import CapInDetails from '@/pages/CapInDetails.vue'
-
+import AdminPage from '@/pages/AdminPage.vue'
+import NotFound from '@/pages/NotFound.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,6 +30,14 @@ const router = createRouter({
     {
       path: '/capDetails/:id',
       component: CapInDetails
+    },
+    {
+      path: '/admin',
+      component: AdminPage
+    },
+    { 
+      path: '/:pathMatch(.*)*', 
+      component: NotFound 
     }
   ]
 })

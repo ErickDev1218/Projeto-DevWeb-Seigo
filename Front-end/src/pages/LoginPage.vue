@@ -1,13 +1,58 @@
 <script setup lang="ts">
-    import { ref } from 'vue'
     import { RouterLink } from 'vue-router';
+    import router from '@/router'
+    import { api } from '@/api'
 
-    const identifier = ref('')
-    const password = ref('')
+    //Zod imports
+    import { useField, useForm } from 'vee-validate';
+    import { toTypedSchema } from '@vee-validate/zod';
+    import * as zod from 'zod';
 
-    async function authenticate() {
-        
-    }
+    const scheme = toTypedSchema(
+        zod.object({
+            email: zod.string().email({message : 'Digite um email válido!'}),
+            password: zod.string().min(5, {message : 'Digite uma senha válida!'})
+        })
+    )
+    const { handleSubmit, errors } = useForm({
+        validationSchema:scheme,
+        validateOnMount: false, // Validação ao carregar o formulário
+        validateOnBlur: true,  // Validação ao sair do campo
+        validateOnInput: true, // Validação enquanto o usuário digita
+    })
+    const {value : email } = useField('email')
+    const {value : password} = useField('password')
+    const handleAuthenticate = handleSubmit (async values => {
+        // Escrever função de autenticacao aqui
+        console.log(values)
+        try{
+            //Pq .post ? O codigo do Bruno esta assim
+            const { data } = await api.post(`/auth/local`, {
+                identifier: values.email,
+                password: values.password
+            })
+            console.log(data)
+            const {jwt} = data
+            const res = await api.get('/users/me',{
+                headers: {
+                    Authorization: `Bearer ${jwt}`
+                },
+                params: {
+                    populate: 'role'
+                }
+            })
+            // console.log(res.data)
+            const role = res.data.role.type
+
+            if(role === 'admin'){
+                router.push(`/admin`)
+            }else{
+                router.push(`/`)
+            }
+        }catch(e){
+            console.log(`Error ao autenticar ${e}`)
+        }
+    })
 </script>
 
 
@@ -18,9 +63,11 @@
         </div>
         <div class="loginSItems">
             <h5 class="loginTitle">Login</h5>
-            <form class="loginForm" @submit.prevent="authenticate">
-                <input type="email" class="loginKey" id="emailInput" placeholder="Email" v-model="identifier" required>
-                <input type="password" class="loginKey" id="passInput" placeholder="Senha" v-model="password" required>
+            <form class="loginForm" @submit.prevent="handleAuthenticate">
+                <input type="email" class="loginKey" id="email" placeholder="Email" v-model="email" >
+                <p class="errorMessage">{{ errors.email === 'Required' ? 'Este campo é obrigatório!' : errors.email }}</p>
+                <input type="password" class="loginKey" id="password" placeholder="Senha" v-model="password" >
+                <p class="errorMessage">{{ errors.password === 'Required' ? 'Este campo é obrigatório!' : errors.password }}</p>
                 <button class="loginButton" type="submit">Login</button>
             </form>
             <RouterLink class="create" :to="'/register'">Crie sua conta</RouterLink>
@@ -133,6 +180,9 @@
         flex-direction: column;
         align-items: center;
         gap: 1em;
+    }
+    .errorMessage{
+        color: red;
     }
 
 </style>
