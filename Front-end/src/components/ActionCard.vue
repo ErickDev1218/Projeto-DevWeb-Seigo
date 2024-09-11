@@ -8,10 +8,12 @@ defineProps<actionCardProps>()
 <template>
         <RouterLink v-if="isReady === true" class="card" :to="`/actDetails/${idCover}`">
             <img  :src="BASE_URL + url" :alt="`Capa do ato ${idCover}`" class='imagem'>
-            <h1 class="title">ATO - {{ idCover }}</h1>
+            <h1 class="title">ATO</h1>
+            <h1 class="titleNumber">{{ idCover }}</h1>
         </RouterLink>
         <div v-else class="notReady card">
-            <h1 class="title">ATO - {{ idCover }}</h1>
+            <h1 class="title">ATO</h1>
+            <h1 class="titleNumber">{{ idCover }}</h1>
             <h5>Em breve...</h5>
         </div>
 </template>
@@ -27,6 +29,7 @@ defineProps<actionCardProps>()
         height: 100%;
         z-index: -1;
         position: absolute;
+        display: block;
     }
     .card:hover{
         box-shadow: 0px 0px 20px orange;
@@ -34,8 +37,23 @@ defineProps<actionCardProps>()
     }
     .title{
         font-family: Poppins-Bold;
-        color: orange;
+        /* color: white; */
+        /* align-self:last baseline; */
+        font-size: 30px;
+        font-weight: bold;
+        color: white; /* Cor padrão */
+        mix-blend-mode: difference; /* Mistura a cor do texto com a imagem */
     }
+    .titleNumber{
+        font-family: Poppins-Bold;
+        /* color: white; */
+        /* align-self:last baseline; */
+        font-size: 45px;
+        font-weight: bold;
+        color: white; /* Cor padrão */
+        mix-blend-mode: difference; /* Mistura a cor do texto com a imagem */
+    }
+
     .card:hover .title{
         text-shadow: 0px 0px 10px black;
         transition: text-shadow 0.3s;
