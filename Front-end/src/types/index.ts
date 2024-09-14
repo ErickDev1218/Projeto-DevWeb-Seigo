@@ -21,3 +21,10 @@ export type capCardProps = {
     idCapCover : string
 
 }
+
+export type User = {
+    username : string
+    email : string
+    password : string
+    role : string
+}
