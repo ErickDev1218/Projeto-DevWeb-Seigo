@@ -1,5 +1,8 @@
 <script setup lang="ts">
   import { RouterLink, RouterView } from 'vue-router'
+  import { useUserStore } from './stores/userStore';
+
+  const userStore = useUserStore()
 </script>
 
 <template>
@@ -10,8 +13,14 @@
       <li class="list">
         <RouterLink :to="'/'" class="listItem">Tela inicial</RouterLink>
         <RouterLink :to="'/register'" class="listItem">Registrar</RouterLink>
-        <RouterLink :to="'/login'" class="listItem">Login</RouterLink>
-      </li>
+        <template v-if="userStore.jwt">
+            <li><a href="#" class="text-white">{{ userStore.user.username }}</a></li>
+            <li><a href="#" @click="userStore.logout" class="text-white">Logout</a></li>
+        </template>
+        <div v-else>
+          <RouterLink :to="'/login'" class="listItem">Login</RouterLink>
+        </div>
+        </li>
     </div>
     <img src="/images/teste.jpeg" alt="background img" class="backgroundFullPic">
     <div class="pageRest">
