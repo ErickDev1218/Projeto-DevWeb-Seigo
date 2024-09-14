@@ -40,7 +40,7 @@ onMounted( async () => {
         const {data} = await api.get(`/cap-covers/${id}?populate=*`)
         capInf.value = data.data
         const res = await api.get(`/manga-pictures/${id}?populate=*`)
-        pictures = res.data.data.pictures.sort((a,b) => {
+        pictures = res.data.data.pictures.sort((a : picturesFormat, b :picturesFormat) => {
             // Extrair o número da string antes de ".png"
             const numA = parseInt(a.name.split('.')[0], 10);
             const numB = parseInt(b.name.split('.')[0], 10);
