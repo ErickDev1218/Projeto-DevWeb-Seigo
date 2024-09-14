@@ -2,11 +2,14 @@
     import { RouterLink } from 'vue-router';
     import router from '@/router'
     import { api } from '@/api'
+    import { useUserStore } from '@/stores/userStore';
 
     //Zod imports
     import { useField, useForm } from 'vee-validate';
     import { toTypedSchema } from '@vee-validate/zod';
     import * as zod from 'zod';
+
+    const userStore = useUserStore();
 
     const scheme = toTypedSchema(
         zod.object({
@@ -41,8 +44,12 @@
                     populate: 'role'
                 }
             })
+            // console.log(userStore.username)
             // console.log(res.data)
             const role = res.data.role.type
+
+            userStore.authenticated(res.data, jwt)
+            // console.log(userStore.username)
 
             if(role === 'admin'){
                 router.push(`/admin`)
