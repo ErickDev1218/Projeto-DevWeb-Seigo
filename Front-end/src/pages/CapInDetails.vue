@@ -3,26 +3,50 @@ import { onMounted, ref } from 'vue'
 import { api } from '@/api'
 import { useRoute } from 'vue-router'
 import CapCard from '@/components/CapCard.vue'
-import MangaView from '@/components/MangaView.vue'
+import CustomModal from '@/components/CustomModal.vue'
 interface capInfFormat {
     capCover : {
         url : string
     }
     idCapCover : string
 }
+interface picturesFormat {
+    name : string
+    url : string
+}
 const capInf = ref<capInfFormat>({} as capInfFormat)
+const actualPage = ref(0)
+let pictures : picturesFormat[] = [] 
 const load = ref(true)
 const openModal = ref(false)
 
 const showManga = () : void =>{
     openModal.value = !openModal.value
 }   
+const previousPage = () : void => {
+    if(actualPage.value > 0){
+        actualPage.value--
+    }
+}
+const nextPage = () : void => {
+    if(actualPage.value < pictures.length -1){
+        actualPage.value++
+    }
+}
 onMounted( async () => {
     const route = useRoute()
     const id = route.params.id
     try{
         const {data} = await api.get(`/cap-covers/${id}?populate=*`)
         capInf.value = data.data
+        const res = await api.get(`/manga-pictures/${id}?populate=*`)
+        pictures = res.data.data.pictures.sort((a,b) => {
+            // Extrair o número da string antes de ".png"
+            const numA = parseInt(a.name.split('.')[0], 10);
+            const numB = parseInt(b.name.split('.')[0], 10);
+            // Comparar os números
+            return numA - numB;
+        })
     }catch(e){
         console.log(e)
     }finally{
@@ -32,7 +56,17 @@ onMounted( async () => {
 </script>
 
 <template>
-    <MangaView v-if="openModal" @close="showManga"/>
+    <CustomModal v-if="openModal" 
+    :toSee="true" 
+    @close="showManga" 
+    @previous="previousPage" 
+    @next="nextPage" 
+    :url="pictures[actualPage].url" 
+    :topLimit="pictures.length" 
+    :actualPage="actualPage"
+    />
+        
+    
     <div  class="mainContainer">
         <div v-if="load">
             Aguarde...
@@ -143,6 +177,9 @@ onMounted( async () => {
         height: 50%;
         border-radius: 1em;
         font-size:large ;
+    }
+    .h1Modal{
+        color: black;
     }
 
 }

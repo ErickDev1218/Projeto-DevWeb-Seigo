@@ -891,7 +891,7 @@ export interface ApiMangaPictureMangaPicture extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    picture: Attribute.Media<'images', true> & Attribute.Required;
+    pictures: Attribute.Media<'images', true> & Attribute.Required;
     cap_cover: Attribute.Relation<
       'api::manga-picture.manga-picture',
       'manyToOne',
