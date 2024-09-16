@@ -3,6 +3,7 @@
     import router from '@/router'
     import { api } from '@/api'
     import { useUserStore } from '@/stores/userStore';
+    import { ref } from 'vue';
 
     //Zod imports
     import { useField, useForm } from 'vee-validate';
@@ -23,6 +24,7 @@
         validateOnBlur: true,  // Validação ao sair do campo
         validateOnInput: true, // Validação enquanto o usuário digita
     })
+    let exception = ref('');
     const {value : email } = useField('email')
     const {value : password} = useField('password')
     const handleAuthenticate = handleSubmit (async values => {
@@ -58,6 +60,12 @@
             }
         }catch(e){
             console.log(`Error ao autenticar ${e}`)
+            exception.value = 'Credenciais incorretas!';
+        }
+        finally{
+            setTimeout(()=> {
+                exception.value = '';
+            }, 5000)
         }
     })
 </script>
@@ -76,6 +84,7 @@
                 <input type="password" class="loginKey" id="password" placeholder="Senha" v-model="password" >
                 <p class="errorMessage">{{ errors.password === 'Required' ? 'Este campo é obrigatório!' : errors.password }}</p>
                 <button class="loginButton" type="submit">Login</button>
+                <p v-if="exception" class="errorMessage">{{ exception }}</p>
             </form>
             <RouterLink class="create" :to="'/register'">Crie sua conta</RouterLink>
 
