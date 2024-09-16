@@ -19,7 +19,7 @@
         })
     )
     const { handleSubmit, errors } = useForm({
-        validationSchema:scheme,
+        validationSchema: scheme,
         validateOnMount: false, // Validação ao carregar o formulário
         validateOnBlur: true,  // Validação ao sair do campo
         validateOnInput: true, // Validação enquanto o usuário digita
