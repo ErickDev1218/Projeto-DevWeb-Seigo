@@ -14,8 +14,8 @@
         <RouterLink :to="'/'" class="listItem">Tela inicial</RouterLink>
         <RouterLink :to="'/register'" class="listItem">Registrar</RouterLink>
         <template v-if="userStore.jwt">
-            <li><a href="#" class="text-white">{{ userStore.user.username }}</a></li>
-            <li><a href="#" @click="userStore.logout" class="text-white">Logout</a></li>
+            <li><a href="#" class="listItem">{{ userStore.user.username }}</a></li>
+            <li><a href="#" @click="userStore.logout" class="listItem">Logout</a></li>
         </template>
         <div v-else>
           <RouterLink :to="'/login'" class="listItem">Login</RouterLink>

@@ -4,6 +4,8 @@ import { api } from '@/api'
 import { useRoute } from 'vue-router'
 import CapCard from '@/components/CapCard.vue'
 import CustomModal from '@/components/CustomModal.vue'
+import { useUserStore } from '@/stores/userStore'
+
 interface capInfFormat {
     capCover : {
         url : string
@@ -19,6 +21,7 @@ const actualPage = ref(0)
 let pictures : picturesFormat[] = [] 
 const load = ref(true)
 const openModal = ref(false)
+const userStore = useUserStore();
 
 const showManga = () : void =>{
     openModal.value = !openModal.value
@@ -77,24 +80,26 @@ onMounted( async () => {
             </div>
             <div class="restPage">
                 <h1 class="ler" @click="showManga">Ler mangá</h1>
-                <span class="favBox">
-                    <label for="favoritar">Favoritar:</label>
-                    <input type="checkbox" name="favoritar" id="favoritar">
-                </span>
-                <span class="avalBox">
-                    <label for="nota">Avaliar</label>
-                    <select name="nota" id="nota">
-                        <option value="1" selected>1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                </span>
-                <div class="comentario">
-                    <h2>Deixar comentário</h2>
-                    <textarea name="comentario" id="comentario" maxlength="200"></textarea>
-                </div>
+                <template v-if="userStore.jwt">
+                    <span class="options">
+                        <label for="favoritar">Favoritar:</label>
+                        <input type="checkbox" name="favoritar" id="favoritar">
+                    </span>
+                    <span class="options">
+                        <label for="nota">Avaliar</label>
+                        <select name="nota" id="nota">
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </span>
+                    <div class="comentario">
+                        <h2>Deixar comentário</h2>
+                        <textarea name="comentario" id="comentario" maxlength="200"></textarea>
+                    </div>
+                </template>
             </div>
         </div>
     </div>
@@ -127,7 +132,6 @@ onMounted( async () => {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    
 }
 
 .ler{
@@ -138,7 +142,7 @@ onMounted( async () => {
     color: orange;
     cursor: pointer;
 }
-.favBox{
+.options{
     width: 30%;
     display: flex;
     align-items: center;
@@ -147,16 +151,6 @@ onMounted( async () => {
     > label {
         color: orange;
     }
-}
-.avalBox{
-    width: 30%;
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    gap: 2em;
-    > label {
-        color: orange;
-    }    
 }
 .comentario{
     width: 100%;
@@ -181,6 +175,6 @@ onMounted( async () => {
     .h1Modal{
         color: black;
     }
-
 }
+
 </style>
