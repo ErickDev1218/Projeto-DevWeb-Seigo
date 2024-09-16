@@ -2,9 +2,13 @@
     //Zod imports
     import { useField, useForm } from 'vee-validate';
     import { toTypedSchema } from '@vee-validate/zod';
+    import { useUserStore } from '@/stores/userStore';
     import { api } from '@/api'
     import router from '@/router'
     import * as zod from 'zod';
+
+    const userStore = useUserStore();
+    
     const scheme = toTypedSchema(
         zod.object({
             name : zod.string().min(4,{message: `Digite um nome válido!`}),
@@ -47,6 +51,9 @@
                 }
             })
             const role = res.data.role.type
+            
+            userStore.authenticated(res.data, jwt)
+
             console.log(role)
             if(role === 'authenticated'){
                 router.push(`/`)
