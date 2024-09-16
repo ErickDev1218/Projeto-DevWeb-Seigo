@@ -2,6 +2,7 @@
     import { RouterLink } from 'vue-router';
     import router from '@/router'
     import { api } from '@/api'
+    import { ref } from 'vue';
     import { useUserStore } from '@/stores/userStore';
 
     //Zod imports
@@ -10,7 +11,8 @@
     import * as zod from 'zod';
 
     const userStore = useUserStore();
-
+    const exception = ref('');
+    
     const scheme = toTypedSchema(
         zod.object({
             email: zod.string().email({message : 'Digite um email válido!'}),
@@ -25,6 +27,8 @@
     })
     const {value : email } = useField('email')
     const {value : password} = useField('password')
+    
+    
     const handleAuthenticate = handleSubmit (async values => {
         // Escrever função de autenticacao aqui
         console.log(values)
@@ -44,20 +48,24 @@
                     populate: 'role'
                 }
             })
-            // console.log(userStore.username)
-            // console.log(res.data)
+
             const role = res.data.role.type
 
             userStore.authenticated(res.data, jwt)
-            // console.log(userStore.username)
 
             if(role === 'admin'){
                 router.push(`/admin`)
             }else{
                 router.push(`/`)
             }
+            
         }catch(e){
-            console.log(`Error ao autenticar ${e}`)
+            exception.value = 'Usuário ou senha incorretos.';
+        }
+        finally{
+            setTimeout(()=>{
+                exception.value = '';
+            },3000)
         }
     })
 </script>
@@ -76,6 +84,7 @@
                 <input type="password" class="loginKey" id="password" placeholder="Senha" v-model="password" >
                 <p class="errorMessage">{{ errors.password === 'Required' ? 'Este campo é obrigatório!' : errors.password }}</p>
                 <button class="loginButton" type="submit">Login</button>
+                <p class="errorMessage" v-if="exception">{{ exception }}</p>
             </form>
             <RouterLink class="create" :to="'/register'">Crie sua conta</RouterLink>
 
