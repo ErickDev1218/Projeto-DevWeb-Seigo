@@ -12,7 +12,7 @@
       <img src="/images/Top-Image.jpeg" alt="Logo" class="header">
       <li class="list">
         <RouterLink :to="'/'" class="listItem">Tela inicial</RouterLink>
-        <RouterLink :to="'/register'" class="listItem">Registrar</RouterLink>
+        <RouterLink v-if="!userStore.jwt" :to="'/register'" class="listItem">Registrar</RouterLink>
         <template v-if="userStore.jwt">
             <li><a href="#" class="listItem">{{ userStore.user.username }}</a></li>
             <li><a href="#" @click="userStore.logout" class="listItem">Logout</a></li>
