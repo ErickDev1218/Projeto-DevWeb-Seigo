@@ -6,11 +6,13 @@ type act_cover = {
     idCover : string
 }
 export type actionCardProps = {
+    id ?: number
     url : string | undefined
     idCover : string
     actDetails : string
     isReady : boolean
     actCover? : actCover
+    handleDelete ?: (id : string) => void
 }
 
 export type capCardProps = {
@@ -25,6 +27,7 @@ export type capCardProps = {
 export type User = {
     username : string
     email : string
-    password : string
-    role : string
+    role : {
+        name : string
+    }
 }

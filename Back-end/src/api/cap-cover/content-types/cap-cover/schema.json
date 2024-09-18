@@ -36,6 +36,12 @@
       "relation": "oneToMany",
       "target": "api::manga-picture.manga-picture",
       "mappedBy": "cap_cover"
+    },
+    "comentarios": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comentario.comentario",
+      "mappedBy": "cap_cover"
     }
   }
 }

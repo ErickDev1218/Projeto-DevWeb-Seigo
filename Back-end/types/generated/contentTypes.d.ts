@@ -771,6 +771,16 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    comentarios: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::comentario.comentario'
+    >;
+    favoritos: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::favorito.favorito'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -862,6 +872,11 @@ export interface ApiCapCoverCapCover extends Schema.CollectionType {
       'oneToMany',
       'api::manga-picture.manga-picture'
     >;
+    comentarios: Attribute.Relation<
+      'api::cap-cover.cap-cover',
+      'oneToMany',
+      'api::comentario.comentario'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -880,12 +895,95 @@ export interface ApiCapCoverCapCover extends Schema.CollectionType {
   };
 }
 
+export interface ApiComentarioComentario extends Schema.CollectionType {
+  collectionName: 'comentarios';
+  info: {
+    singularName: 'comentario';
+    pluralName: 'comentarios';
+    displayName: 'comentario';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    text: Attribute.Text & Attribute.Required;
+    users_permissions_user: Attribute.Relation<
+      'api::comentario.comentario',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    cap_cover: Attribute.Relation<
+      'api::comentario.comentario',
+      'manyToOne',
+      'api::cap-cover.cap-cover'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::comentario.comentario',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::comentario.comentario',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiFavoritoFavorito extends Schema.CollectionType {
+  collectionName: 'favoritos';
+  info: {
+    singularName: 'favorito';
+    pluralName: 'favoritos';
+    displayName: 'Favorito';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    isFavorit: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.DefaultTo<false>;
+    users_permissions_user: Attribute.Relation<
+      'api::favorito.favorito',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    cap_cover: Attribute.Relation<
+      'api::favorito.favorito',
+      'oneToOne',
+      'api::cap-cover.cap-cover'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::favorito.favorito',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::favorito.favorito',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiMangaPictureMangaPicture extends Schema.CollectionType {
   collectionName: 'manga_pictures';
   info: {
     singularName: 'manga-picture';
     pluralName: 'manga-pictures';
     displayName: 'MangaPicture';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -897,6 +995,12 @@ export interface ApiMangaPictureMangaPicture extends Schema.CollectionType {
       'manyToOne',
       'api::cap-cover.cap-cover'
     >;
+    idCapCover: Attribute.String &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -935,6 +1039,8 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::act-cover.act-cover': ApiActCoverActCover;
       'api::cap-cover.cap-cover': ApiCapCoverCapCover;
+      'api::comentario.comentario': ApiComentarioComentario;
+      'api::favorito.favorito': ApiFavoritoFavorito;
       'api::manga-picture.manga-picture': ApiMangaPictureMangaPicture;
     }
   }

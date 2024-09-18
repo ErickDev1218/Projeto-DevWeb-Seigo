@@ -10,17 +10,30 @@
     
     <div class="headerContainer">
       <img src="/images/Top-Image.jpeg" alt="Logo" class="header">
-      <li class="list">
-        <RouterLink :to="'/'" class="listItem">Tela inicial</RouterLink>
-        <RouterLink v-if="!userStore.jwt" :to="'/register'" class="listItem">Registrar</RouterLink>
-        <template v-if="userStore.jwt">
-            <li><a href="#" class="listItem">{{ userStore.user.username }}</a></li>
-            <li><a href="#" @click="userStore.logout" class="listItem">Logout</a></li>
-        </template>
-        <div v-else>
-          <RouterLink :to="'/login'" class="listItem">Login</RouterLink>
-        </div>
+
+      <ul class="list" v-if="!userStore.jwt">
+        <li>
+          <RouterLink :to="'/'" class="listItem">Tela inicial</RouterLink>
         </li>
+        <li>
+          <RouterLink :to="'/register'" class="listItem">Registrar</RouterLink>
+        </li>
+        <li>
+          <RouterLink :to="'/login'" class="listItem">Login</RouterLink>
+        </li>
+      </ul>
+
+      <ul class="list" v-else>
+        <li>
+          <RouterLink :to="'/'" class="listItem">Tela inicial</RouterLink>
+        </li>
+        <li>
+          <RouterLink :to="userStore.role === 'Admin' ? '/admin' : '/profile/:id' " class="listItem">{{ userStore.user.username }}</RouterLink>
+        </li>
+        <li class="userAndLogout">
+          <RouterLink :to="'/'" class="listItem" @click="userStore.logout">Logout</RouterLink>
+        </li>
+      </ul>
     </div>
     <img src="/images/teste.jpeg" alt="background img" class="backgroundFullPic">
     <div class="pageRest">
@@ -94,6 +107,7 @@
     z-index: -1;
     filter : blur(0px);
   }
+
 
 
 </style>

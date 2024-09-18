@@ -4,7 +4,8 @@
   "info": {
     "singularName": "manga-picture",
     "pluralName": "manga-pictures",
-    "displayName": "MangaPicture"
+    "displayName": "MangaPicture",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -12,18 +13,24 @@
   "pluginOptions": {},
   "attributes": {
     "pictures": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": true,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     },
     "cap_cover": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::cap-cover.cap-cover",
       "inversedBy": "manga_pictures"
+    },
+    "idCapCover": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "minLength": 1
     }
   }
 }

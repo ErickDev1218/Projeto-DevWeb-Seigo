@@ -8,7 +8,7 @@ const loading = ref(true)
 onMounted( async () => {
     try{
        const { data } = await api.get('/act-covers?populate=actCover') 
-       console.log(data.data)
+    //    console.log(data.data)
        covers.value = data.data
     }catch(e){
         console.log(e)
@@ -47,13 +47,14 @@ onMounted( async () => {
     padding: 1em;
 }
 .cardContainer{
-    width: 100%;
+    max-width: 85%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-around;
     gap: 1em;
     flex-wrap: wrap;
+    overflow-y: auto;
 }
 .cardContainer > .card {
     width: 270px;

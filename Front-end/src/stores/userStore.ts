@@ -7,13 +7,14 @@ export const useUserStore = defineStore('user', () => {
   const user = ref<User>({
     username: localStorage.getItem('username') || '',
     email: localStorage.getItem('email') || '',
-    password: localStorage.getItem('password') || '',
-    role: localStorage.getItem('role') || ''
+    role: {
+        name : localStorage.getItem('role') || ''
+    } 
   })
   
-  const jwt = ref('')
+  const jwt = ref(localStorage.getItem('jwt') || '')
 
-  const role = computed(() => user.value.role)
+  const role = computed(() => user.value.role.name)
   const username = computed(() => user.value.username)
   const isAuthenticated = computed(() => jwt.value !== "")
 
@@ -21,10 +22,10 @@ export const useUserStore = defineStore('user', () => {
     user.value = authUser
     jwt.value = token
 
-    localStorage.setItem('username', user.value.username)
-    localStorage.setItem('email', user.value.email)
-    localStorage.setItem('password', user.value.password)
-    localStorage.setItem('role', user.value.role)
+    localStorage.setItem('username', authUser.username)
+    localStorage.setItem('email', authUser.email)
+    localStorage.setItem('role', authUser.role.name)
+    localStorage.setItem('jwt', token)
   }
 
   function logout() {

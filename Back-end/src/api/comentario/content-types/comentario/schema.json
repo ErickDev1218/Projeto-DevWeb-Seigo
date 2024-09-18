@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "comentarios",
+  "info": {
+    "singularName": "comentario",
+    "pluralName": "comentarios",
+    "displayName": "comentario"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "text": {
+      "type": "text",
+      "required": true
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "comentarios"
+    },
+    "cap_cover": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::cap-cover.cap-cover",
+      "inversedBy": "comentarios"
+    }
+  }
+}

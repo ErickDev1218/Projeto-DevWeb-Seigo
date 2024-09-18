@@ -6,6 +6,7 @@ import RegisterPage from '@/pages/RegisterPage.vue'
 import CapInDetails from '@/pages/CapInDetails.vue'
 import AdminPage from '@/pages/AdminPage.vue'
 import NotFound from '@/pages/NotFound.vue'
+import ProfilePage from '@/pages/ProfilePage.vue'
 import { useUserStore } from '@/stores/userStore'
 
 const router = createRouter({
@@ -42,6 +43,10 @@ const router = createRouter({
     { 
       path: '/:pathMatch(.*)*', 
       component: NotFound 
+    },
+    {
+      path : '/profile/:id',
+      component: ProfilePage
     }
   ]
 })

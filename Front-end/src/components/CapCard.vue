@@ -4,6 +4,7 @@ interface CapCardProps  {
     url:string
     idCapCover : string
     isRouter : boolean
+    forAdmin ?: boolean
 }
 
 defineProps<CapCardProps>()
@@ -17,15 +18,47 @@ import { BASE_URL } from '@/api'
         <h1>Capítulo {{ idCapCover }}</h1>
     </RouterLink>
     </div>
+    <div v-else-if="forAdmin" class="imgContainer">
+        <img :src="BASE_URL + url" :alt="`Capa do capitulo ${idCapCover}`"> 
+        <h3>Capítulo {{ idCapCover }}</h3>
+        <span class="rowContainer">
+            <p>🆙</p>
+            <p>❌</p>
+        </span>
+    </div>
     <div v-else>
         <div class="capContainer" id="noRouter">
-        <img :src="BASE_URL + url" :alt="`Capa do capitulo ${idCapCover}`"> 
-        <h1>Capítulo {{ idCapCover }}</h1>
+            <img :src="BASE_URL + url" :alt="`Capa do capitulo ${idCapCover}`"> 
+            <h1>Capítulo {{ idCapCover }}</h1>
         </div>
     </div>
+    
 </template>
 
 <style scoped>
+    .rowContainer{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        >p {
+            cursor: pointer;
+            font-size: x-large;
+        }
+    }
+    .imgContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: ceter;
+        > img {
+            width: 225px;
+            height: 361px;
+        }
+        >h3 {
+            color: orange;
+        }
+    }
     #noRouter {
         cursor: auto;
         > img {

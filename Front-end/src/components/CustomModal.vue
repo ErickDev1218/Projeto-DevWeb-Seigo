@@ -3,8 +3,8 @@
     import { BASE_URL } from '@/api'
 
     interface CustomModalProps {
-        toSee : boolean
-        onConfirm ?: (id : string) => void
+        toSee ?: boolean
+        onConfirm ?: () => void
         url ?: string
 
     }
@@ -44,16 +44,16 @@
         <div class="modalContainer" v-else>
             <slot name="text">
                 Insira o texto aqui
+                <div class="buttonContainer">
+                    <button @click="closeModal" class="button cancel">
+                        Cancelar
+                    </button>
+                    <button @click="onConfirm && onConfirm()" class="button confirm">
+                        Confirmar
+                    </button>
+                </div>
             </slot>
 
-            <div class="buttonContainer">
-                <button @click="closeModal" class="button cancel">
-                    Cancelar
-                </button>
-                <button @click="onConfirm" class="button confirm">
-                    Confirmar
-                </button>
-            </div>
             <button @click="closeModal" id="closeButton">❌</button>
         </div>
     </div>
@@ -94,6 +94,8 @@
         justify-content: center;
         position: relative;
         color: black;
+        padding: 1em;
+        gap: 2em;
     }
     .buttonContainer{
         width: 100%;
@@ -138,9 +140,5 @@
         font-weight: bolder;
         font-size: xx-large;
         cursor: pointer;
-    }
-    /* Isso aqui faz com que tudo que seja injetado no modal seja preto */
-    ::v-deep > * {
-        color: black;
     }
 </style>
