@@ -26,9 +26,25 @@ export type capCardProps = {
 }
 
 export type User = {
+    id: string
     username : string
     email : string
     role : {
         name : string
+    }
+}
+
+export type capCoverProps = {
+    capCover : string
+    idCapCover : string
+    handleDelete? : (id : string) => void
+}
+
+export type CommentFormatResponse = {
+    user : User
+    text : string
+    cap_cover : {
+        id : number
+        idCapCover : string
     }
 }
