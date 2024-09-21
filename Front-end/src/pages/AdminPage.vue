@@ -1,4 +1,5 @@
 <script setup lang="ts">
+    import JSZip from 'Jszip'
     import { BASE_URL, api } from '@/api'
     import { ref, onMounted } from 'vue'
     import CustomModal from '@/components/CustomModal.vue'
@@ -166,39 +167,44 @@
             loading.value = false
         }
     })
-    // function downloadBlob(blob : Blob, index : number) {
-    //     const url = URL.createObjectURL(blob);
-    //     const link = document.createElement('a');
-    //     console.log(blob)
-    //     link.href = url;
-    //     link.download = `imagem-${index}.png`; // Nome padrão se não fornecido
-    //     document.body.appendChild(link);
-    //     link.click();
-    //     document.body.removeChild(link);
-    //     URL.revokeObjectURL(url); // Limpa a URL temporária
-    // }
-    // function sleep(ms : number) {
-    //     return new Promise(resolve => setTimeout(resolve, ms));
-    // }
-    // async function downloader() {
-    //     try {
-    //         const { data } = await api.get('/manga-pictures/?populate=*');
-    //         for (let i = 0; i < data.data[0].pictures.length; i++) {
-    //             const image = data.data[0].pictures[i];
-    //             const blobResponse = await api.get(BASE_URL + image.url, { responseType: 'blob' });
-    //             const blob = blobResponse.data;
-    //             downloadBlob(blob, i);
-    //             await sleep(1000)
-    //         }
-    //     } catch (error) {
-    //         console.error(`Erro ao fazer download: ${error}`);
-    //     }
-    // }
 
+    async function downloadZip() {
+    try {
+        const { data } = await api.get('/manga-pictures/?populate=*');
+        const zip = new JSZip();
+        console.log(data.data[0].pictures)
+        const pictures = data.data[0].pictures?.sort((a , b ) => {
+            // Extrair o número da string antes de ".png"
+            const numA = parseInt(a.name.split('.')[0], 10);
+            const numB = parseInt(b.name.split('.')[0], 10);
+            // Comparar os números
+            return numA - numB;
+        })
+        for (let i = 0; i < pictures.length; i++) {
+            const image = pictures[i+1];
+            const blobResponse = await api.get(BASE_URL + image.url, { responseType: 'blob' });
+            const blob = blobResponse.data;
+            zip.file(`imagem-${i}.png`, blob);
+        }
+
+        const content = await zip.generateAsync({ type: "blob" });
+        const url = URL.createObjectURL(content);
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'imagens.zip';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    } catch (error) {
+        console.error(`Erro ao criar o ZIP: ${error}`);
+    }
+}
 </script>
 <template>
     <div class="mainContainer">
-        <button @click="downloader">Download</button>
+        <button @click="downloadZip">Download</button>
         <h1>Bem-vindo de volta, administrador!</h1>
 
         <CustomModal 
