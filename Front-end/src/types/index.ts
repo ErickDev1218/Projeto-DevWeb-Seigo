@@ -9,6 +9,7 @@ export type actionCardProps = {
     id ?: number
     url : string | undefined
     idCover : string
+    idCapCover ?: string
     actDetails : string
     isReady : boolean
     actCover? : actCover

@@ -47,7 +47,7 @@ onMounted( async () => {
     padding: 1em;
 }
 .cardContainer{
-    max-width: 85%;
+    width: 85%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -70,9 +70,9 @@ onMounted( async () => {
 }
 .cardContainer > .card:hover{
     filter: grayscale(0%);
-    width: 405px;
-    height: 540px;
-    transition: grayscale 0.5s, width 0.5s, height 0.5s;
+    /* width: 405px;
+    height: 540px; */
+    transition: grayscale 0.5s;
 }
 
 </style>

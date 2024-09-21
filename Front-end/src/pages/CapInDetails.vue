@@ -5,6 +5,7 @@ import { useRoute } from 'vue-router'
 import CapCard from '@/components/CapCard.vue'
 import CustomModal from '@/components/CustomModal.vue'
 import { useUserStore } from '@/stores/userStore'
+import type { capCardProps } from '@/types'
 
 interface capInfFormat {
     capCover : {
@@ -15,6 +16,7 @@ interface capInfFormat {
 interface picturesFormat {
     name : string
     url : string
+    cap_cover : capCardProps
 }
 const capInf = ref<capInfFormat>({} as capInfFormat)
 const actualPage = ref(0)
@@ -38,12 +40,12 @@ const nextPage = () : void => {
 }
 onMounted( async () => {
     const route = useRoute()
-    const id = route.params.id
+    const id = route.params.id // 9
     try{
-        const {data} = await api.get(`/cap-covers/${id}?populate=*`)
-        capInf.value = data.data
+        const {data} = await api.get(`/cap-covers/?populate=*`)
+        capInf.value = data.data.filter((ea : capInfFormat) => ea.idCapCover === id)[0]
         const res = await api.get(`/manga-pictures/?populate=*`)
-        pictures = res.data.data.filter(ea => ea.idCapCover === id)[0].pictures.sort((a : picturesFormat, b :picturesFormat) => {
+        pictures = res.data.data.filter((ea : picturesFormat) => ea.cap_cover.idCapCover === id)[0].pictures?.sort((a : picturesFormat, b :picturesFormat) => {
             // Extrair o número da string antes de ".png"
             const numA = parseInt(a.name.split('.')[0], 10);
             const numB = parseInt(b.name.split('.')[0], 10);

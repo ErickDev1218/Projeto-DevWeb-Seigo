@@ -28,9 +28,13 @@
     },
     "idCapCover": {
       "type": "string",
+      "required": false,
+      "unique": true
+    },
+    "idMangaPicture": {
+      "type": "string",
       "required": true,
-      "unique": true,
-      "minLength": 1
+      "unique": true
     }
   }
 }

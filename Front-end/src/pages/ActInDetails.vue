@@ -14,10 +14,9 @@ onMounted( async () => {
     const id = route.params.id;
     try{
         const { data } = await api.get(`/act-covers?populate=*`)
-        const obj = data.data.filter((ea : actionCardProps) => ea.idCover === id)
-        const resAct = await api.get(`/act-covers/${obj[0].id}?populate=*`) 
+        const obj = data.data.filter((ea : actionCardProps) => ea.idCover === id)[0]
+        const resAct = await api.get(`/act-covers/${obj.id}?populate=*`) 
         const resCap  = await api.get(`/cap-covers?populate=*`)
-        console.log(resCap.data.data)
         actObj.value = resAct.data.data
         allCaps.value = resCap.data.data.filter((each : capCardProps) => each.act_cover?.idCover === id)
     }catch(e){

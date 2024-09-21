@@ -7,6 +7,7 @@ import type { actionCardProps } from '@/types'
 import CustomModal from '@/components/CustomModal.vue'
 
 const useStore = useUserStore()
+const jwt = useStore.jwt
 const isOpenModalForDelete = ref<boolean>(false)
 const isOpenModalForUpdate = ref<boolean>(false)
 const details = ref<string>('')
@@ -22,14 +23,15 @@ async function handleUpdate() {
     if(details.value === ''){
         details.value = props.actDetails
     }
-    const jwt = useStore.jwt
     try{
+        const { data } = await api.get(`/act-covers/?populate=*`)
+        const realId = data.data.filter((ea : actionCardProps ) => ea.idCover === props.idCover)[0].id
         const datas = new FormData()
         datas.append('data', JSON.stringify({
             actDetails: details.value
         }))
         datas.append('files.actCover', novaCapa.value) // Adiciona o arquivo
-        const res = await api.put(`/act-covers/${props.idCover}`,datas, {
+        const res = await api.put(`/act-covers/${realId}`,datas, {
             headers: {
                 Authorization : `Bearer ${jwt}`
             }
@@ -96,8 +98,8 @@ function handleDetails(e : Event){
         <img v-if="isReady" :src="BASE_URL + url" :alt="`Capa do ato ${idCover}`" class='imagem'>
         <h1 class="title" v-if="!handleDelete">ATO - {{ idCover }}</h1>
         <span class="rowContainer" v-if="handleDelete">
-            <p class="update" @click="handleIsOpenModalForUpdate">🆙</p>
-            <p class="delete" @click="handleIsOpenModalForDelete">❌</p>
+            <button class="update" @click="handleIsOpenModalForUpdate">🆙</button>
+            <button class="delete" @click="handleIsOpenModalForDelete">❌</button>
         </span>
     </div>
 </template>
@@ -154,7 +156,8 @@ function handleDetails(e : Event){
         justify-content: space-around;
         align-items: center;
         width: 100%;
-        >p {
+        >button {
+            all: unset;
             cursor: pointer;
             font-size: x-large;
         }

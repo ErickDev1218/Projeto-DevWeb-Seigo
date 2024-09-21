@@ -995,12 +995,8 @@ export interface ApiMangaPictureMangaPicture extends Schema.CollectionType {
       'manyToOne',
       'api::cap-cover.cap-cover'
     >;
-    idCapCover: Attribute.String &
-      Attribute.Required &
-      Attribute.Unique &
-      Attribute.SetMinMaxLength<{
-        minLength: 1;
-      }>;
+    idCapCover: Attribute.String & Attribute.Unique;
+    idMangaPicture: Attribute.String & Attribute.Required & Attribute.Unique;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
