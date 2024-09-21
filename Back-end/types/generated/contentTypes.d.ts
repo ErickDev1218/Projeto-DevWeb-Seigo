@@ -771,15 +771,15 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    comentarios: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToMany',
-      'api::comentario.comentario'
-    >;
     favoritos: Attribute.Relation<
       'plugin::users-permissions.user',
       'oneToMany',
       'api::favorito.favorito'
+    >;
+    comentarios: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::comentario.comentario'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -901,13 +901,14 @@ export interface ApiComentarioComentario extends Schema.CollectionType {
     singularName: 'comentario';
     pluralName: 'comentarios';
     displayName: 'comentario';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     text: Attribute.Text & Attribute.Required;
-    users_permissions_user: Attribute.Relation<
+    user: Attribute.Relation<
       'api::comentario.comentario',
       'manyToOne',
       'plugin::users-permissions.user'

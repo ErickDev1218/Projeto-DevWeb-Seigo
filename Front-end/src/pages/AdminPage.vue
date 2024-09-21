@@ -172,7 +172,7 @@
     try {
         const { data } = await api.get('/manga-pictures/?populate=*');
         const zip = new JSZip();
-        console.log(data.data[0].pictures)
+        // console.log(data.data[0].pictures)
         const pictures = data.data[0].pictures?.sort((a , b ) => {
             // Extrair o número da string antes de ".png"
             const numA = parseInt(a.name.split('.')[0], 10);
@@ -180,11 +180,12 @@
             // Comparar os números
             return numA - numB;
         })
+        console.log(pictures)
         for (let i = 0; i < pictures.length; i++) {
-            const image = pictures[i+1];
+            const image = pictures[i];
             const blobResponse = await api.get(BASE_URL + image.url, { responseType: 'blob' });
             const blob = blobResponse.data;
-            zip.file(`imagem-${i}.png`, blob);
+            zip.file(`imagem-${i+1}.png`, blob);
         }
 
         const content = await zip.generateAsync({ type: "blob" });

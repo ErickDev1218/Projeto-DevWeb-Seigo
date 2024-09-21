@@ -4,7 +4,8 @@
   "info": {
     "singularName": "comentario",
     "pluralName": "comentarios",
-    "displayName": "comentario"
+    "displayName": "comentario",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -15,7 +16,7 @@
       "type": "text",
       "required": true
     },
-    "users_permissions_user": {
+    "user": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
