@@ -66,17 +66,17 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "comentarios": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::comentario.comentario",
-      "mappedBy": "users_permissions_user"
-    },
     "favoritos": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::favorito.favorito",
       "mappedBy": "users_permissions_user"
+    },
+    "comentarios": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comentario.comentario",
+      "mappedBy": "user"
     }
   }
 }

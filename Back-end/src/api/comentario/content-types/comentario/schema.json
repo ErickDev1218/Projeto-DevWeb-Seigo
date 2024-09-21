@@ -4,7 +4,8 @@
   "info": {
     "singularName": "comentario",
     "pluralName": "comentarios",
-    "displayName": "comentario"
+    "displayName": "comentario",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -15,16 +16,16 @@
       "type": "text",
       "required": true
     },
-    "users_permissions_user": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "comentarios"
-    },
     "cap_cover": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::cap-cover.cap-cover",
+      "inversedBy": "comentarios"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
       "inversedBy": "comentarios"
     }
   }
