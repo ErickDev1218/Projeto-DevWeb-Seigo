@@ -92,16 +92,13 @@ onMounted( async () => {
                 isFav.value = test.isFavorit
             }
         }
-        const calcNota = await api.get(`/notas/?populate=*`, {
-            headers: {
-                Authorization: `Bearer ${jwt}`
-            }
-        })        
+        const calcNota = await api.get(`/notas/?populate=*`)        
         test = calcNota.data.data.filter((ea : Nota) => ea.cap_cover.idCapCover === id)
         if(test){
             let aux = 0;
             test.forEach((nota : Nota) => aux += nota.notaAtual)
-            notaCap.value = aux/test.length
+            const denominador = test.length === 0 ? 1 : test.length
+            notaCap.value = aux/denominador
         }
 
 
