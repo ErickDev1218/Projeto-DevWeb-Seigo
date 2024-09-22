@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "notas",
+  "info": {
+    "singularName": "nota",
+    "pluralName": "notas",
+    "displayName": "Nota"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "notaAtual": {
+      "type": "integer",
+      "required": true
+    },
+    "cap_cover": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::cap-cover.cap-cover",
+      "inversedBy": "notas"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "notas"
+    }
+  }
+}

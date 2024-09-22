@@ -4,7 +4,8 @@
   "info": {
     "singularName": "favorito",
     "pluralName": "favoritos",
-    "displayName": "Favorito"
+    "displayName": "Favorito",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -16,7 +17,7 @@
       "default": false,
       "required": true
     },
-    "users_permissions_user": {
+    "user": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",

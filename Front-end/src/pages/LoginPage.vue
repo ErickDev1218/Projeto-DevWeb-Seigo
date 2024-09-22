@@ -26,14 +26,12 @@
     const {value : password} = useField('password')
     const handleAuthenticate = handleSubmit (async values => {
         // Escrever função de autenticacao aqui
-        console.log(values)
         try{
             //Pq .post ? O codigo do Bruno esta assim
             const { data } = await api.post(`/auth/local`, {
                 identifier: values.email,
                 password: values.password
             })
-            console.log(data)
             const {jwt} = data
             const res = await api.get('/users/me',{
                 headers: {
@@ -43,12 +41,9 @@
                     populate: 'role'
                 }
             })
-            // console.log(userStore.username)
-            // console.log(res.data)
             const role = res.data.role.type
 
             userStore.authenticated(res.data, jwt)
-            // console.log(userStore.username)
 
             if(role === 'admin'){
                 router.push(`/admin`)

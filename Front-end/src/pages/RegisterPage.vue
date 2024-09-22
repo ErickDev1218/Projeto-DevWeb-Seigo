@@ -22,9 +22,6 @@
     )
     const { handleSubmit, errors } = useForm({
         validationSchema:scheme,
-        validateOnMount: false, // Validação ao carregar o formulário
-        validateOnBlur: true,  // Validação ao sair do campo
-        validateOnInput: true, // Validação enquanto o usuário digita
     })
     const {value : name} = useField('name')
     const {value : email} = useField('email')
@@ -33,7 +30,6 @@
 
     const handleRegister = handleSubmit( async value => {
         //Escrever a funcao de registrar aqui
-        console.log(value)
         try{
             const { data } = await api.post('/auth/local/register', {
                 username : value.name,
@@ -54,7 +50,6 @@
             
             userStore.authenticated(res.data, jwt)
 
-            console.log(role)
             if(role === 'authenticated'){
                 router.push(`/`)
             }else{

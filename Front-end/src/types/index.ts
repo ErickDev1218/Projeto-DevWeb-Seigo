@@ -43,8 +43,25 @@ export type capCoverProps = {
 export type CommentFormatResponse = {
     user : User
     text : string
+    id : number
     cap_cover : {
         id : number
         idCapCover : string
     }
+}
+
+export type FavoritesFormatResponse = {
+    isFavorit : boolean
+    user : {
+        id : number
+    }
+    cap_cover : {
+        idCapCover : string
+    }
+}
+
+export type Nota = {
+    notaAtual : number
+    cap_cover : capCoverProps
+    user : User
 }

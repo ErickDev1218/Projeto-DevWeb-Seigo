@@ -771,15 +771,20 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    comentarios: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::comentario.comentario'
+    >;
     favoritos: Attribute.Relation<
       'plugin::users-permissions.user',
       'oneToMany',
       'api::favorito.favorito'
     >;
-    comentarios: Attribute.Relation<
+    notas: Attribute.Relation<
       'plugin::users-permissions.user',
       'oneToMany',
-      'api::comentario.comentario'
+      'api::nota.nota'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -877,6 +882,11 @@ export interface ApiCapCoverCapCover extends Schema.CollectionType {
       'oneToMany',
       'api::comentario.comentario'
     >;
+    notas: Attribute.Relation<
+      'api::cap-cover.cap-cover',
+      'oneToMany',
+      'api::nota.nota'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -942,6 +952,7 @@ export interface ApiFavoritoFavorito extends Schema.CollectionType {
     singularName: 'favorito';
     pluralName: 'favoritos';
     displayName: 'Favorito';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -950,7 +961,7 @@ export interface ApiFavoritoFavorito extends Schema.CollectionType {
     isFavorit: Attribute.Boolean &
       Attribute.Required &
       Attribute.DefaultTo<false>;
-    users_permissions_user: Attribute.Relation<
+    user: Attribute.Relation<
       'api::favorito.favorito',
       'manyToOne',
       'plugin::users-permissions.user'
@@ -1016,6 +1027,38 @@ export interface ApiMangaPictureMangaPicture extends Schema.CollectionType {
   };
 }
 
+export interface ApiNotaNota extends Schema.CollectionType {
+  collectionName: 'notas';
+  info: {
+    singularName: 'nota';
+    pluralName: 'notas';
+    displayName: 'Nota';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    notaAtual: Attribute.Integer & Attribute.Required;
+    cap_cover: Attribute.Relation<
+      'api::nota.nota',
+      'manyToOne',
+      'api::cap-cover.cap-cover'
+    >;
+    user: Attribute.Relation<
+      'api::nota.nota',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::nota.nota', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::nota.nota', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1039,6 +1082,7 @@ declare module '@strapi/types' {
       'api::comentario.comentario': ApiComentarioComentario;
       'api::favorito.favorito': ApiFavoritoFavorito;
       'api::manga-picture.manga-picture': ApiMangaPictureMangaPicture;
+      'api::nota.nota': ApiNotaNota;
     }
   }
 }

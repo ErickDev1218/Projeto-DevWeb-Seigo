@@ -42,6 +42,12 @@
       "relation": "oneToMany",
       "target": "api::comentario.comentario",
       "mappedBy": "cap_cover"
+    },
+    "notas": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::nota.nota",
+      "mappedBy": "cap_cover"
     }
   }
 }
