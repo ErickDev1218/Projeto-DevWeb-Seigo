@@ -140,7 +140,9 @@
                 manga_pictures : mangaToCap,
                 act_cover : data.data.filter((ea : actionCardProps) => ea.idCover === createIdAct.value)[0].id
             }))
+
             datas.append('files.capCover', createCapCover.value) // Adiciona o arquivo
+
             res = await api.post(`/cap-covers`,datas,{
                 headers : {
                     Authorization : `Bearer ${jwt}`,

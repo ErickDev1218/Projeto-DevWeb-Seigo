@@ -117,10 +117,17 @@ function handleTextChange(event : Event) : void {
 async function handleCreateComment(){
     try{
         const datas = new FormData()
+        
+        const findRealId = await api.get(`/cap-covers/?populate=*`,{
+            headers: {
+                Authorization: `Bearer ${jwt}`
+            }
+        })
+        const realId = findRealId.data.data.filter((ea : capInfFormat) => ea.idCapCover === id)[0].id
 
         datas.append('data', JSON.stringify({
             text : textAreaInput.value,
-            cap_cover : capInf.value.idCapCover,
+            cap_cover : realId,
             user : userStore.id
         }))
 
@@ -141,6 +148,7 @@ async function updateFavorite(e: Event) {
     const input = e.target as HTMLInputElement;
 
     try{
+
         const check = await api.get(`/favoritos/?populate=*`, {
             headers: {
                 Authorization: `Bearer ${userStore.jwt}`
@@ -151,13 +159,21 @@ async function updateFavorite(e: Event) {
         )
         
         if(checkArray.length === 0){
+            const findRealId = await api.get(`/cap-covers/?populate=*`,{
+                headers: {
+                    Authorization: `Bearer ${jwt}`
+                }
+            })
+
+            const realId = findRealId.data.data.filter((ea : capInfFormat) => ea.idCapCover === id)[0].id
+
             const datas = new FormData();
             datas.append('data', JSON.stringify({
                 isFavorit: input.checked,
                 user: Number(userStore.id),
-                cap_cover: id
+                cap_cover: realId
             }))
-            
+        
             await api.post(`/favoritos`, datas, {
                 headers: {
                     Authorization: `Bearer ${userStore.jwt}`
