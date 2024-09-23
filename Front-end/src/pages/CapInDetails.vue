@@ -201,9 +201,16 @@ async function updateFavorite(e: Event) {
 
 async function downloadZip() {
     try {
-        const { data } = await api.get('/manga-pictures/?populate=*');
+
         const zip = new JSZip();
-        const pictures = data.data.filter((ea : capInfFormat)  => ea.id === Number(id))[0].pictures?.sort((a : picturesFormat , b : picturesFormat ) => {
+        
+        const { data } = await api.get('/manga-pictures/?populate=*');
+        
+        const realId = data.data.filter((ea : any) => ea.cap_cover.idCapCover == id)[0].id
+        
+
+        const pictures = data.data.filter((ea : capInfFormat)  => ea.id == realId)[0].pictures?.sort((a : picturesFormat , b : picturesFormat ) => 
+        {
             // Extrair o número da string antes de ".png"
             const numA = parseInt(a.name.split('.')[0], 10);
             const numB = parseInt(b.name.split('.')[0], 10);
