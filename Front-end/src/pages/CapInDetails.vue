@@ -12,6 +12,15 @@ import JSZip from 'jszip'
 
 interface capInfFormat {
     capCover : {
+        idCapCover : string
+        url : string
+    }
+    idCapCover : string
+    id : number
+}
+interface capInfFormatObject {
+    cap_cover : {
+        idCapCover : string
         url : string
     }
     idCapCover : string
@@ -201,14 +210,9 @@ async function updateFavorite(e: Event) {
 
 async function downloadZip() {
     try {
-
         const zip = new JSZip();
-        
         const { data } = await api.get('/manga-pictures/?populate=*');
-        
-        const realId = data.data.filter((ea : any) => ea.cap_cover.idCapCover == id)[0].id
-        
-
+        const realId = data.data.filter((ea : capInfFormatObject) => ea.cap_cover.idCapCover == id)[0].id
         const pictures = data.data.filter((ea : capInfFormat)  => ea.id == realId)[0].pictures?.sort((a : picturesFormat , b : picturesFormat ) => 
         {
             // Extrair o número da string antes de ".png"
